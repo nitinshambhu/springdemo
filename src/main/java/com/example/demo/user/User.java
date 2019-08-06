@@ -3,17 +3,18 @@ package com.example.demo.user;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@Getter @Setter @NoArgsConstructor
 class User {
 
     @Id
     int id;
     String name;
     int age;
-
-    protected User() {
-        
-    }
 
     public User(int id, String name, int age) {
         this.id = id;
