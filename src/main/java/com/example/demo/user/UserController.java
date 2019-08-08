@@ -1,10 +1,11 @@
 package com.example.demo.user;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,24 +22,34 @@ class UserController {
     UserRepository userRepo;
 
     @GetMapping(value = "/all")
-    public List<User> getUsers() {
-        // List<User> list = new ArrayList<>();    @ResponseBody
-        // userRepo.findAll().forEach(list::add);
-        return Arrays.asList(new User(101, "Shri Hari", 100)) ;
+    public List<User> getAll() {
+        List<User> list = new ArrayList<>();
+        userRepo.findAll().forEach(list::add);
+        return list;
     }
 
     @GetMapping(value = "/{id}")
-    public Optional<User> getUser(@PathVariable int id) {
+    public Optional<User> get(@PathVariable int id) {
         return userRepo.findById(id);
     }
 
     @PostMapping
-    public User addUser(@RequestBody User user) {
+    public User create(@RequestBody User user) {
         return userRepo.save(user);
     }
 
     @PutMapping
-    public User updateUser(User user) {
+    public User update(@RequestBody User user) {
         return userRepo.save(user);
+    }
+
+    @DeleteMapping
+    public void delete(@RequestBody User user) {
+        userRepo.delete(user);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public void deleteById(@PathVariable int id) {
+        userRepo.deleteById(id);
     }
 }
