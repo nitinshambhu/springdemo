@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -21,35 +22,41 @@ class UserController {
     @Autowired
     UserRepository userRepo;
 
-    @GetMapping(value = "/all")
+    //    @GetMapping(value = "/all")
+    @RequestMapping(method = RequestMethod.GET, value = "/all")
     public List<User> getAll() {
         List<User> list = new ArrayList<>();
         userRepo.findAll().forEach(list::add);
         return list;
     }
 
-    @GetMapping(value = "/{id}")
+    //    @GetMapping(value = "/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public Optional<User> get(@PathVariable int id) {
         return userRepo.findById(id);
     }
 
-    @PostMapping
+    //    @PostMapping
+    @RequestMapping(method = RequestMethod.POST)
     public User create(@RequestBody User user) {
         return userRepo.save(user);
     }
 
-    @PutMapping
+    //    @PutMapping
+    @RequestMapping(method = RequestMethod.PUT)
     public User update(@RequestBody User user) {
         return userRepo.save(user);
     }
 
-    @DeleteMapping
+    //    @DeleteMapping
+    @RequestMapping(method = RequestMethod.DELETE)
     public void delete(@RequestBody User user) {
         userRepo.delete(user);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public void deleteById(@PathVariable int id) {
+    //    @DeleteMapping(value = "/{id}")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public void delete(@PathVariable int id) {
         userRepo.deleteById(id);
     }
 }
